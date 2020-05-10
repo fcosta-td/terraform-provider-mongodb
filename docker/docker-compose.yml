@@ -1,0 +1,28 @@
+version: '3.7'
+
+networks:
+  network-terraform:
+    driver: bridge
+
+services:
+    mongodb:
+        image: mongo:3.6
+        container_name: mongodb_node_1
+        volumes:
+            - ./mongodb/init:/docker-entrypoint-initdb.d:ro
+        #environment:
+        #    - MONGO_INITDB_ROOT_USERNAME=root
+        #    - MONGO_INITDB_ROOT_PASSWORD=root123
+        ports:
+            - '27017:27017'
+        restart: unless-stopped
+        logging:
+            driver: journald
+            options:
+                tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
+        networks:
+            - network-terraform
+        healthcheck:
+            test: "nc -z localhost 27017"
+            interval: 5s
+            retries: 5
