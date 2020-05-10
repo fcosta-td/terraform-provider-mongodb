@@ -1,4 +1,4 @@
-module github.com/fcosta/terraform-provider-mongodb
+module github.com/fcosta-td/terraform-provider-mongodb
 
 go 1.13
 
