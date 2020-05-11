@@ -100,17 +100,11 @@ func (client *Client) CheckRole(name string) (string, error) {
 		return "", err
 	}
 
-	switch len(result.Db) {
-		case 0:
-			log.Printf("[ERR] Could not find role [%s] in admin.system.roles", name)
-			return "", errors.New("Could not find role in admin.system.roles")
-
-		case 1:
-			log.Printf("[INFO] Found 1 result for role [%s]", name)
-			return result.Db, nil
-
-		default:
-			log.Printf("[ERR] Found (%q) matches for role [%s] in admin.system.roles",len(result.Db), name)
-			return "", errors.New("Found more that one match for role in admin.system.roles")
+	if len(result.Db) == 0 {
+		log.Printf("[ERR] Could not find role [%s] in admin.system.roles", name)
+		return "", errors.New("Could not find role in admin.system.roles")
+	} else {
+		log.Printf("[INFO] Found 1 result for role [%s]", name)
+		return result.Db, nil
 	}
 }

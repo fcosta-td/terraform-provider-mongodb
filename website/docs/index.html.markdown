@@ -21,7 +21,7 @@ provider "mongodb" {
 ```
 
 ```hcl
-provider "postgresql" {
+provider "mongodb" {
   mongo_uri = "mongodb://localhost:27017/admin"
 }
 
@@ -32,7 +32,7 @@ resource "mongodb_user" "user1" {
 
   role {
     role = mongodb_role.role1.name
-    db   = "admin"
+    db   = mongodb_role.role1.db
   }
 }
 

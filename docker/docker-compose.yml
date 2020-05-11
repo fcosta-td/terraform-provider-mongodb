@@ -10,9 +10,6 @@ services:
         container_name: mongodb_node_1
         volumes:
             - ./mongodb/init:/docker-entrypoint-initdb.d:ro
-        #environment:
-        #    - MONGO_INITDB_ROOT_USERNAME=root
-        #    - MONGO_INITDB_ROOT_PASSWORD=root123
         ports:
             - '27017:27017'
         restart: unless-stopped

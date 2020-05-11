@@ -33,7 +33,7 @@ func RedactMongoUri(uri string) string {
 
 		cStr, err := connstring.Parse(uri)
 		if err != nil {
-			log.Printf("Cannot parse mongodb server url: %s", err)
+			log.Printf("[Err] Cannot parse mongodb server url: %s", err)
 			return "unknown/error"
 		}
 
@@ -58,7 +58,7 @@ func NewClient(connectionString string) (interface{}, error) {
 	c, err := mongo.Connect(ctx,ops)
 
 	if err != nil {
-		log.Printf("Cannot connect to server using url %s: %s", RedactMongoUri(connectionString), err)
+		log.Printf("[ERR] Cannot connect to server using url %s: %s", RedactMongoUri(connectionString), err)
 		return nil, err
 	}
 
@@ -80,7 +80,6 @@ func CheckUserPassword(database string, username string, password string) (strin
 		SetAuth(options.Credential{
 			AuthSource: database, Username: username, Password: password,
 		 })
-
 
 	c, err := mongo.Connect(ctx,ops)
 

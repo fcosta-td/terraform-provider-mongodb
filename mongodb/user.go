@@ -103,17 +103,11 @@ func (client *Client) CheckUser(name string) (string, error) {
 		return "", err
 	}
 
-	switch len(result.Db) {
-		case 0:
-			log.Printf("[ERR] Could not find user [%s] in admin.system.users", name)
-			return "", errors.New("Could not find user in admin.system.users")
-
-		case 1:
-			log.Printf("[INFO] Found 1 result for user [%s]", name)
-			return result.Db, nil
-
-		default:
-			log.Printf("[ERR] Found (%q) matches for user [%s] in admin.system.users",len(result.Db), name)
-			return "", errors.New("Found more that one match for user in admin.system.users")
+	if len(result.Db) == 0 {
+		log.Printf("[ERR] Could not find user [%s] in admin.system.users", name)
+		return "", errors.New("Could not find user in admin.system.users")
+	} else {
+		log.Printf("[INFO] Found 1 result for user [%s]", name)
+		return result.Db, nil
 	}
 }
