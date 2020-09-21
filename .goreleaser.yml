@@ -1,0 +1,19 @@
+archives:
+    - id: terraform-provider-mongodb_v{{.Version}}-{{.Arch}}
+      format: zip
+      files:
+        - none*
+  before:
+    hooks:
+      - go mod download
+  builds:
+      - binary: terraform-provider-mongodb_v{{.Version}}
+        goarch:
+          - amd64
+        goos:
+          - darwin
+          - linux
+  changelog:
+    skip: true
+  env:
+    - CGO_ENABLED=0

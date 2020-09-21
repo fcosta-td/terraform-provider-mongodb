@@ -2,3 +2,4 @@ tests
 
 .terraform
 terraform.tfstate*
+terraform-provider-mongodb*
